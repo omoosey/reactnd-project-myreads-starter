@@ -2,6 +2,7 @@ import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import { Route, Link } from 'react-router-dom'
+import SearchBooks from './SearchBooks'
 
 class BooksApp extends React.Component {
   state = {
@@ -26,7 +27,7 @@ class BooksApp extends React.Component {
       <div className="app">
       {this.searchBooks('To')}
         <Route path="/search" exact render={() => (
-          
+          <SearchBooks/>
         )}/>
         <Route path="/" exact render={() => (
           <div className="list-books">
