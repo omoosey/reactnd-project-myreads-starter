@@ -15,12 +15,12 @@ class ListBooks extends React.Component {
 
 	render() {
 		let currentBooks = this.props.books
+    let shelf = this.props.shelf;
 
-//can refactor the filter -> map to a function
 		return (
       <ol className="books-grid">
       {currentBooks.filter(book => {
-        return book.shelf === "currentlyReading"
+        return book.shelf === shelf;
       }).map((book) => 
         <li key={book.id}>
           <div className="book">
