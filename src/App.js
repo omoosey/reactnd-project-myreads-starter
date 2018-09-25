@@ -24,11 +24,6 @@ class BooksApp extends React.Component {
     })
   }
 
-  allBooks = () => {
-    BooksAPI.getAll().then((books) => {
-      console.log(books)
-    })
-  }
 
 
   render() {
