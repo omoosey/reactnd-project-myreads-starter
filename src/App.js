@@ -17,26 +17,39 @@ class BooksApp extends React.Component {
   }
 
   searchBooks = (book) => {
-    BooksAPI.search(book).then((book) => {
-      book.map((book) => {
-        console.log(book.id)
-      })
+    BooksAPI.search(book).then((search) => {
+      return search;
     })
+
   }
 
-  changeShelf = (book, shelf) => {
-    BooksAPI.update(book, shelf).then((books) => {
+  changeShelf = (selectedBook, selectedShelf) => {
+    BooksAPI.update(selectedBook, selectedShelf).then((books) => {
       BooksAPI.getAll().then((books) => {
         this.setState({ books })
       })
     });
+    // this.setState((state, props) => {
+    //   const books = state.books;
+
+    //   const newBooks = books.map((book) => {
+    //     if(book.id === selectedBook.id){
+    //       book.shelf = selectedShelf;
+    //     }
+
+    //     return book;
+    //   })
+
+    //   return {books: newBooks};
+    // })
   }
 
   render() {
+
     return (
       <div className="app">
         <Route path="/search" exact render={() => (
-          <SearchBooks onBookSearch={this.searchBooks}/>
+          <SearchBooks books={this.state.books} onBookSearch={this.searchBooks} onChangeShelf={this.changeShelf}/>
         )}/>
         <Route path="/" exact render={() => (
           <BookCase books={this.state.books} onChangeShelf={this.changeShelf}/>

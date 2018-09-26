@@ -1,9 +1,8 @@
 import React from 'react';
-import * as BooksAPI from './BooksAPI'
 
 class SelectShelf extends React.Component {
 	state = {
-		shelf: this.props.shelf
+		shelf: (this.props.shelf ? this.props.shelf : 'none')
 	}
 
 	handleChange = (event) => {

@@ -1,7 +1,6 @@
 import React from 'react';
 import BookShelves from './BookShelves'
 import { Link } from 'react-router-dom'
-import * as BooksAPI from './BooksAPI'
 
 class BookCase extends React.Component {
 
