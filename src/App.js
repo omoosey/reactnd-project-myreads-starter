@@ -24,14 +24,22 @@ class BooksApp extends React.Component {
     })
   }
 
+  changeShelf = (book, shelf) => {
+    BooksAPI.update(book, shelf).then((books) => {
+      BooksAPI.getAll().then((books) => {
+        this.setState({ books })
+      })
+    });
+  }
+
   render() {
     return (
       <div className="app">
         <Route path="/search" exact render={() => (
-          <SearchBooks/>
+          <SearchBooks onBookSearch={this.searchBooks}/>
         )}/>
         <Route path="/" exact render={() => (
-          <BookCase books={this.state.books} />
+          <BookCase books={this.state.books} onChangeShelf={this.changeShelf}/>
         )}/>
       </div>
     )

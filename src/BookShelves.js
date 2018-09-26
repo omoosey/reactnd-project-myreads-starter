@@ -8,7 +8,7 @@ class BookShelves extends React.Component {
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">{this.props.shelf}</h2>
                   <div className="bookshelf-books">
-					<ListBooks books={this.props.books} shelf={this.props.shelfID}/>
+					<ListBooks onChangeShelf={this.props.onChangeShelf} books={this.props.books} shelf={this.props.shelfID}/>
                   </div>
                 </div>
 	          </div>

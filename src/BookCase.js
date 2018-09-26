@@ -1,31 +1,35 @@
 import React from 'react';
 import BookShelves from './BookShelves'
 import { Link } from 'react-router-dom'
+import * as BooksAPI from './BooksAPI'
 
 class BookCase extends React.Component {
+
+
 	render() {
 		let shelves = [];
-		let _isMounted = false;
+		let currentlyReading = false;
+		let wantToRead = false;
+		let read = false;
 
 		this.props.books.forEach((book) => {
-			if(book.shelf === "currentlyReading" && _isMounted === false) {
+			if(book.shelf === "currentlyReading" && currentlyReading === false) {
 				shelves.push(
-					<BookShelves books={this.props.books} shelfID={book.shelf} key={book.shelf} shelf='Currently Reading'/>
+					<BookShelves onChangeShelf={this.props.onChangeShelf} books={this.props.books} shelfID={book.shelf} key={book.shelf} shelf='Currently Reading'/>
 				);
-				_isMounted = true;
-			} else if(book.shelf === "wantToRead" && _isMounted === true) {
+				currentlyReading = true;
+			} else if(book.shelf === "wantToRead" && wantToRead === false) {
 				shelves.push(
-					<BookShelves books={this.props.books} shelfID={book.shelf} key={book.shelf} shelf='Want To Read'/>
+					<BookShelves onChangeShelf={this.props.onChangeShelf} books={this.props.books} shelfID={book.shelf} key={book.shelf} shelf='Want To Read'/>
 				);
-				_isMounted = false;
-			} else if(book.shelf === "read" && _isMounted === false) {
+				wantToRead = true;
+			} else if(book.shelf === "read" && read === false) {
 				shelves.push(
-					<BookShelves books={this.props.books} shelfID={book.shelf} key={book.shelf} shelf='Read'/>
+					<BookShelves onChangeShelf={this.props.onChangeShelf} books={this.props.books} shelfID={book.shelf} key={book.shelf} shelf='Read'/>
 				);
-				_isMounted = true;
+				read = true;
 			}
 		})
-
 
 		return (
 			<div className="list-books">
