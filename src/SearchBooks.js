@@ -12,9 +12,7 @@ class SearchBooks extends React.Component {
 	
 	// Update query value and run search based on query value
 	updateQuery = (query) => {
-		this.setState({
-			query: query.trim()
-		})
+		this.setState({ query });
 		BooksAPI.search(query).then((results) => {
 			if(!results.error){
 				this.setState({books: results})
@@ -25,9 +23,9 @@ class SearchBooks extends React.Component {
 					result.shelf = found[0] ? found[0].shelf : null;
 				})
 			} else {
-				alert('INVALID SEARCH TERMS')
+				this.setState({books: []})
 			}
-		}).catch((error) => console.log(error))
+		}).catch((error) => this.setState({books: []}))
 	}
 
 	handleSubmit = (event) => {
