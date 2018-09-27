@@ -11,6 +11,7 @@ class BookCase extends React.Component {
 		let wantToRead = false;
 		let read = false;
 
+		// Create shelves based on book array
 		this.props.books.forEach((book) => {
 			if(book.shelf === "currentlyReading" && currentlyReading === false) {
 				shelves.push(

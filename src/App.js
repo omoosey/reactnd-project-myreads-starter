@@ -10,6 +10,7 @@ class BooksApp extends React.Component {
     books: []
   }
 
+  // Updates books array when component mounts
   componentDidMount(){
     BooksAPI.getAll().then((books) => {
       this.setState({ books })
@@ -23,25 +24,13 @@ class BooksApp extends React.Component {
 
   }
 
+  // Update book's shelf property to selected shelf
   changeShelf = (selectedBook, selectedShelf) => {
     BooksAPI.update(selectedBook, selectedShelf).then((books) => {
       BooksAPI.getAll().then((books) => {
         this.setState({ books })
       })
     });
-    // this.setState((state, props) => {
-    //   const books = state.books;
-
-    //   const newBooks = books.map((book) => {
-    //     if(book.id === selectedBook.id){
-    //       book.shelf = selectedShelf;
-    //     }
-
-    //     return book;
-    //   })
-
-    //   return {books: newBooks};
-    // })
   }
 
   render() {

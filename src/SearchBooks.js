@@ -9,15 +9,21 @@ class SearchBooks extends React.Component {
 		query: ''
 	}
 
+	
+	// Update query value and run search based on query value
 	updateQuery = (query) => {
 		this.setState({
 			query: query.trim()
 		})
 		BooksAPI.search(query).then((results) => {
-			console.log(results)
-
 			if(!results.error){
 				this.setState({books: results})
+				results.forEach((result) => {
+					let found = this.props.books.filter((book) => {
+						return book.id === result.id;
+					})
+					result.shelf = found[0] ? found[0].shelf : null;
+				})
 			} else {
 				alert('INVALID SEARCH TERMS')
 			}
@@ -25,18 +31,11 @@ class SearchBooks extends React.Component {
 	}
 
 	handleSubmit = (event) => {
-		// let text = document.getElementById('textInput').value;
-		// console.log(text);
 		this.props.onBookSearch();
 	}
 
-	// componentDidUpdate(){
-	// 	this.handleSubmit(this.state.query)
-	// }
-
 	render () {
 		
-
 		return (
 			<div className="search-books">
 	            <div className="search-books-bar">
@@ -67,7 +66,7 @@ class SearchBooks extends React.Component {
 				            <div className="book-top">
 				              <div className="book-cover" style={{width: 128, height: 193, backgroundImage: `url(${book.imageLinks ? book.imageLinks.thumbnail : 'http://3.bp.blogspot.com/-s3yBaPBn8Hc/Uh4-wAZOQLI/AAAAAAAAJT8/GY9d_VJFm3o/s1600/play-books-no-cover.jpg' }`}}></div>
 				              <div className="book-shelf-changer">
-				              	<SelectShelf onChangeShelf={this.props.onChangeShelf} book={book} />
+				              	<SelectShelf onChangeShelf={this.props.onChangeShelf} book={book} shelf={book.shelf} />
 				              </div>
 				            </div>
 				            <div className="book-title">{book.title}</div>
